@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MauiPeopleApp.ViewModels"
+             x:Class="MauiPeopleApp.Views.LoginPage"
+             Title="Secure Login"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <viewmodels:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <!-- Background Gradient -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#2196F3" Offset="0.0" />
+                <GradientStop Color="#21CBF3" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="30" Padding="40" VerticalOptions="Center">
+                
+                <!-- App Logo/Icon -->
+                <Frame BackgroundColor="White" CornerRadius="60" WidthRequest="120" HeightRequest="120" HorizontalOptions="Center" HasShadow="True">
+                    <Label Text="👥" FontSize="60" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Frame>
+
+                <!-- App Title -->
+                <Label Text="People App" 
+                       FontSize="32" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+
+                <!-- Subtitle -->
+                <Label Text="Secure access to your contacts" 
+                       FontSize="16" 
+                       TextColor="White"
+                       Opacity="0.8"
+                       HorizontalOptions="Center" />
+
+                <!-- Biometric Status -->
+                <Frame BackgroundColor="White" CornerRadius="15" Padding="20" HasShadow="True">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="🔐 Biometric Authentication" 
+                               FontSize="18" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" 
+                               TextColor="#333" />
+                        
+                        <Label Text="{Binding StatusMessage}" 
+                               FontSize="14" 
+                               HorizontalOptions="Center"
+                               TextColor="#666"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Login Button -->
+                <Button Text="Authenticate with Biometrics" 
+                        Command="{Binding LoginWithBiometricCommand}"
+                        BackgroundColor="White"
+                        TextColor="#2196F3"
+                        FontAttributes="Bold"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        IsEnabled="{Binding IsNotBusy}" />
+
+                <!-- Skip Button (for testing) -->
+                <Button Text="Skip Authentication (Demo Mode)" 
+                        Command="{Binding SkipAuthenticationCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontSize="14"
+                        Opacity="0.7" />
+
+                <!-- Loading Indicator -->
+                <ActivityIndicator IsVisible="{Binding IsBusy}" 
+                                   IsRunning="{Binding IsBusy}"
+                                   Color="White" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
